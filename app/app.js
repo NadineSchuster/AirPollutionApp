@@ -9,6 +9,7 @@ const btnFam = document.querySelector('.optFaM');
 const btnBerlin = document.querySelector('.optBerlin');
 
 const dataSection = document.querySelector('.data');
+const dataList = document.querySelector('.data ul');
 
 btnMunich.addEventListener("click", function(event) {
     fetchPollutionData(Munich.Lat, Munich.Lon);
@@ -38,10 +39,14 @@ const Berlin = {
 }
 
 // Show Data
-let showData = function(pollutionData){
-    const pollution = pollutionData.list[0];
-    console.log(pollution.main);
-    console.log(pollution.components);
+let showData = function(pollution){
+
+    for (const key in pollution) {
+        let liElement = document.createElement("li");
+        liElement.textContent = `${key}: ${pollution[key]}`;
+        dataList.appendChild(liElement);
+    }
+    dataSection.appendChild(dataList);
 }
 
 // Fetch Data
@@ -51,7 +56,27 @@ let fetchPollutionData = async function(lat, lon){
         const response = await fetch(apiCall);
         const pollutionData = await response.json();
         console.log(pollutionData);
-        showData(pollutionData);
+
+        const pollutionDetails = pollutionData.list[0];
+        console.log(pollutionDetails);
+
+        const airQuality = pollutionDetails.main;
+        console.log(airQuality.aqi);
+
+        const pollution = {
+            AirQualityIndex: airQuality.aqi,
+            CarbonMonoxide: pollutionDetails.components.co,
+            Ammonia: pollutionDetails.components.nh3,
+            NitrogenMonoxide: pollutionDetails.components.no,
+            NitrogenDioxide: pollutionDetails.components.no2,
+            Ozone: pollutionDetails.components.o3,
+            CoarseParticulateMatter: pollutionDetails.components.pm10,
+            FineParticlesMatter: pollutionDetails.components.pm2_5,
+            SulphurDioxide: pollutionDetails.components.so2,
+        }
+
+        showData(pollution);
+
     } catch (error) {
         console.log(error);
     }
