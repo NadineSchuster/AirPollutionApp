@@ -1,9 +1,26 @@
 "use strict"
 
 // Check the details of the API here: https://openweathermap.org/api/air-pollution
+
 import { apiKey } from "../keys.js";
-// Call url to get current air pollution data
-//const apiCall = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${dotenv.KEY}`;
+
+const btnMunich = document.querySelector('.optMunich');
+const btnFam = document.querySelector('.optFaM');
+const btnBerlin = document.querySelector('.optBerlin');
+
+const dataSection = document.querySelector('.data');
+
+btnMunich.addEventListener("click", function(event) {
+    fetchPollutionData(Munich.Lat, Munich.Lon);
+});
+
+btnFam.addEventListener("click", function(event) {
+    fetchPollutionData(FrankfurtAmMain.Lat, FrankfurtAmMain.Lon);
+});
+
+btnBerlin.addEventListener("click", function(event) {
+    fetchPollutionData(Berlin.Lat, Berlin.Lon);
+});
 
 const Munich = {
     Lon: 11.579590,
@@ -20,15 +37,22 @@ const Berlin = {
     Lat: 52.522906
 }
 
+// Show Data
+let showData = function(pollutionData){
+    const pollution = pollutionData.list[0];
+    console.log(pollution.main);
+    console.log(pollution.components);
+}
+
 // Fetch Data
-let fetchPollutionData = async function(){
-   let apiCall = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${Munich.Lat}&lon=${Munich.Lon}&appid=` + apiKey;
+let fetchPollutionData = async function(lat, lon){
+   let apiCall = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=` + apiKey;
    try{
         const response = await fetch(apiCall);
         const pollutionData = await response.json();
         console.log(pollutionData);
+        showData(pollutionData);
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
 }
-fetchPollutionData();
