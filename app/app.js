@@ -12,14 +12,17 @@ const dataSection = document.querySelector('.data');
 const dataList = document.querySelector('.data ul');
 
 btnMunich.addEventListener("click", function(event) {
+    clear();
     fetchPollutionData(Munich.Lat, Munich.Lon);
 });
 
 btnFam.addEventListener("click", function(event) {
+    clear();
     fetchPollutionData(FrankfurtAmMain.Lat, FrankfurtAmMain.Lon);
 });
 
 btnBerlin.addEventListener("click", function(event) {
+    clear();
     fetchPollutionData(Berlin.Lat, Berlin.Lon);
 });
 
@@ -80,4 +83,10 @@ let fetchPollutionData = async function(lat, lon){
     } catch (error) {
         console.log(error);
     }
+}
+
+let clear = function() {
+    while (dataList.firstChild) {
+    dataList.removeChild(dataList.lastChild);
+  }
 }

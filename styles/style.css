@@ -87,4 +87,20 @@ body {
      object-fit: cover;
   background-color: #c4c4c4;
 }
+
+.options button {
+  background-color: white;
+  border-radius: 10px;
+  border: none;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  color: #4242d8;
+}
+
+.options button:hover {
+  background-color: #4242d8;
+  color: #fff;
+}
 /*# sourceMappingURL=style.css.map */
