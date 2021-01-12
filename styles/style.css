@@ -17,6 +17,11 @@ ul {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+  color: #000;
+}
+
 html {
   background-color: #bbbbf8;
 }
@@ -72,12 +77,27 @@ body {
   overflow: hidden;
 }
 
-.data ul {
+.data table {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 10px;
           flex: 1 1 10px;
   line-height: 1.7rem;
   margin: auto;
+  margin-top: 1rem;
+  width: 500px;
+}
+
+.data table tr td {
+  width: 250px;
+}
+
+tr td:nth-child(2) a {
+  color: #6b0f6b;
+  cursor: text;
+}
+
+tr td:nth-child(1) a {
+  font-weight: 600;
 }
 
 .img-container img {

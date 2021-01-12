@@ -9,22 +9,33 @@ const btnFam = document.querySelector('.optFaM');
 const btnBerlin = document.querySelector('.optBerlin');
 
 const dataSection = document.querySelector('.data');
-const dataList = document.querySelector('.data ul');
+const dataList = document.querySelectorAll('.pollutionValue');
+const infoHeader = document.querySelector('.data span');
 
 btnMunich.addEventListener("click", function(event) {
     clear();
+    infoHeader.textContent = "München";
     fetchPollutionData(Munich.Lat, Munich.Lon);
 });
 
 btnFam.addEventListener("click", function(event) {
     clear();
+    infoHeader.textContent = "Frankfurt am Main";
     fetchPollutionData(FrankfurtAmMain.Lat, FrankfurtAmMain.Lon);
 });
 
 btnBerlin.addEventListener("click", function(event) {
     clear();
+    infoHeader.textContent = "Berlin";
     fetchPollutionData(Berlin.Lat, Berlin.Lon);
 });
+
+// Dynamisches hinzufügen von Key und value...
+// ...sodass es immer stimmt, auch wenn die Reihenfolge abweicht
+// Hinzufügen der Stadt im Header
+// Durch die Buttons durchitterieren
+// Values im html so hinzufügen where value-name === key-name
+// Die Card sollte nicht der body sein Q_Q
 
 const Munich = {
     Lon: 11.579590,
@@ -43,13 +54,11 @@ const Berlin = {
 
 // Show Data
 let showData = function(pollution){
-
-    for (const key in pollution) {
-        let liElement = document.createElement("li");
-        liElement.textContent = `${key}: ${pollution[key]}`;
-        dataList.appendChild(liElement);
+    let counter = 0;
+    for(const key in pollution){
+        dataList[counter].textContent = pollution[key]
+        counter++;
     }
-    dataSection.appendChild(dataList);
 }
 
 // Fetch Data
@@ -77,6 +86,7 @@ let fetchPollutionData = async function(lat, lon){
             FineParticlesMatter: pollutionDetails.components.pm2_5,
             SulphurDioxide: pollutionDetails.components.so2,
         }
+        console.log(pollution);
 
         showData(pollution);
 
