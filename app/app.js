@@ -11,6 +11,7 @@ const btnBerlin = document.querySelector('.optBerlin');
 const dataSection = document.querySelector('.data');
 const dataList = document.querySelectorAll('.pollutionValue');
 const infoHeader = document.querySelector('.data span');
+let img = document.querySelector(".img-container img");
 
 const inputLat = document.querySelector("#user-lat");
 const inputLon = document.querySelector("#user-lon");
@@ -57,8 +58,31 @@ const Berlin = {
 let showData = function(pollution){
     let counter = 0;
     for(const key in pollution){
-        dataList[counter].textContent = pollution[key]
+        dataList[counter].textContent = pollution[key];
         counter++;
+    }
+    setImage(pollution);
+}
+
+let setImage = function(pollution){
+    switch (pollution.AirQualityIndex) {
+        case 1:
+            img.src = "https://images.unsplash.com/photo-1435224654926-ecc9f7fa028c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fHNreXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            break;
+        case 2:
+            img.src = "https://images.unsplash.com/photo-1597350843493-556aaecdb650?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDl8fHRvd24lMjBmb2d8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            break;
+        case 3:
+            img.src = "https://images.unsplash.com/photo-1599338299012-cebd5f26f196?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjB8fHRvd24lMjBmb2d8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60";
+            break;
+        case 4:
+            img.src = "https://images.unsplash.com/photo-1571148433633-f62d3cdb5eee?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzR8fGZvZyUyMGNpdHl8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            break;
+        case 5:
+            img.src = "https://images.unsplash.com/photo-1564938570611-f618ed26e19b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NTF8fHRvd24lMjBmb2d8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            break;
+        default:
+            break;
     }
 }
 
@@ -69,13 +93,8 @@ let fetchPollutionData = async function(lat, lon){
    try{
         const response = await fetch(apiCall);
         const pollutionData = await response.json();
-        console.log(pollutionData);
-
         const pollutionDetails = pollutionData.list[0];
-        console.log(pollutionDetails);
-
         const airQuality = pollutionDetails.main;
-        console.log(airQuality.aqi);
 
         const pollution = {
             AirQualityIndex: airQuality.aqi,
@@ -88,7 +107,6 @@ let fetchPollutionData = async function(lat, lon){
             FineParticlesMatter: pollutionDetails.components.pm2_5,
             SulphurDioxide: pollutionDetails.components.so2,
         }
-        console.log(pollution);
 
         showData(pollution);
 

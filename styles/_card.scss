@@ -28,7 +28,11 @@
 }
 
 .data table tr td {
-  width: 250px;
+  width: 50px;
+}
+
+tr td:nth-child(3) {
+  width: 50px;
 }
 
 tr td:nth-child(1) {
