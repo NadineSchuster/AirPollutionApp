@@ -8,6 +8,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .img-container {
   flex: 1 1 10px;
   width: 500px;
@@ -18,13 +19,6 @@
   overflow: hidden;
 }
 
-// .data ul {
-//   flex: 1 1 10px;
-//   line-height: 1.7rem;
-//   margin: auto;
-//   margin-top: 1rem;
-// }
-
 .data table {
   flex: 1 1 10px;
   line-height: 1.7rem;
@@ -32,16 +26,16 @@
   margin-top: 1rem;
   width: 500px;
 }
+
 .data table tr td {
   width: 250px;
 }
 
 tr td:nth-child(2) a {
-  color: rgb(107, 15, 107);
   cursor: text;
 }
 
-tr td:nth-child(1) a {
+tr td:nth-child(1) {
   font-weight: 600;
 }
 

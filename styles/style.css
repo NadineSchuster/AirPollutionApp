@@ -92,11 +92,10 @@ body {
 }
 
 tr td:nth-child(2) a {
-  color: #6b0f6b;
   cursor: text;
 }
 
-tr td:nth-child(1) a {
+tr td:nth-child(1) {
   font-weight: 600;
 }
 
@@ -144,5 +143,23 @@ tr td:nth-child(1) a {
   padding: 0.5rem;
   font-size: 1rem;
   width: 120px;
+}
+
+#ok {
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: #4242d8;
+  border-color: #4242d8;
+  font-size: 1rem;
+  font-weight: 600;
+  border-width: 2px;
+  cursor: pointer;
+}
+
+#ok:hover {
+  border-color: #4242d8;
+  background: #4242d8;
+  color: #fff;
 }
 /*# sourceMappingURL=style.css.map */

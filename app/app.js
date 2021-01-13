@@ -12,30 +12,31 @@ const dataSection = document.querySelector('.data');
 const dataList = document.querySelectorAll('.pollutionValue');
 const infoHeader = document.querySelector('.data span');
 
+const inputLat = document.querySelector("#user-lat");
+const inputLon = document.querySelector("#user-lon");
+const inputBtn = document.querySelector("#ok");
+
+inputBtn.addEventListener("click", function(event){
+    let lat = inputLat.value;
+    let lon = inputLon.value;
+    infoHeader.textContent = "Lat: " + lat + " Lon: " + lon;
+    fetchPollutionData(lat, lon);
+});
+
 btnMunich.addEventListener("click", function(event) {
-    clear();
     infoHeader.textContent = "München";
     fetchPollutionData(Munich.Lat, Munich.Lon);
 });
 
 btnFam.addEventListener("click", function(event) {
-    clear();
     infoHeader.textContent = "Frankfurt am Main";
     fetchPollutionData(FrankfurtAmMain.Lat, FrankfurtAmMain.Lon);
 });
 
 btnBerlin.addEventListener("click", function(event) {
-    clear();
     infoHeader.textContent = "Berlin";
     fetchPollutionData(Berlin.Lat, Berlin.Lon);
 });
-
-// Dynamisches hinzufügen von Key und value...
-// ...sodass es immer stimmt, auch wenn die Reihenfolge abweicht
-// Hinzufügen der Stadt im Header
-// Durch die Buttons durchitterieren
-// Values im html so hinzufügen where value-name === key-name
-// Die Card sollte nicht der body sein Q_Q
 
 const Munich = {
     Lon: 11.579590,
@@ -63,6 +64,7 @@ let showData = function(pollution){
 
 // Fetch Data
 let fetchPollutionData = async function(lat, lon){
+   clear();
    let apiCall = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=` + apiKey;
    try{
         const response = await fetch(apiCall);
