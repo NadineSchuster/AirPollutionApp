@@ -91,10 +91,6 @@ body {
   width: 250px;
 }
 
-tr td:nth-child(2) a {
-  cursor: text;
-}
-
 tr td:nth-child(1) {
   font-weight: 600;
 }
