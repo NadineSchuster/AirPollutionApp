@@ -89,15 +89,19 @@ let setImage = function(pollution){
 // Fetch Data
 let fetchPollutionData = async function(lat, lon){
    clear();
-   let apiCall = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=` + apiKey;
-   try{
-        const response = await fetch(apiCall);
-        const pollutionData = await response.json();
-        const pollutionDetails = pollutionData.list[0];
-        const airQuality = pollutionDetails.main;
+    let apiCall = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=` + apiKey; 
+    let pollution;
 
-        const pollution = {
-            AirQualityIndex: airQuality.aqi,
+    axios({
+        method: 'get',
+        url: apiCall,
+    }).then(
+        pollutionDetails => pollutionDetails.data.list
+    ).then(
+        airQ => airQ[0]
+    ).then(
+            pollutionDetails => pollution = {
+            AirQualityIndex: pollutionDetails.main.aqi,
             CarbonMonoxide: pollutionDetails.components.co,
             Ammonia: pollutionDetails.components.nh3,
             NitrogenMonoxide: pollutionDetails.components.no,
@@ -107,12 +111,9 @@ let fetchPollutionData = async function(lat, lon){
             FineParticlesMatter: pollutionDetails.components.pm2_5,
             SulphurDioxide: pollutionDetails.components.so2,
         }
-
-        showData(pollution);
-
-    } catch (error) {
-        console.log(error);
-    }
+    ).then(
+        pollution => showData(pollution)
+    ).catch(err => console.log(err))
 }
 
 let clear = function() {

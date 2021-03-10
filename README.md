@@ -1,4 +1,5 @@
 # AirPollutionApp
+
 Calls OpenWeatherMap API for data about air pollution.
 Take a look at the API: https://openweathermap.org/api/air-pollution
 
