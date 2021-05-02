@@ -1,1 +1,10 @@
-"Hello from server.js?"
+[
+  {
+    "airQuality": 1,
+    "dateTime": {
+      "date": "2/5/2021",
+      "time": "5:3"
+    },
+    "location": "Munich"
+  }
+]

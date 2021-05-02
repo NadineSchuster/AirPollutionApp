@@ -6,6 +6,10 @@ const fs = require("fs");
 
 console.log("my Api is running");
 
+function done() {
+  console.log("Data saved"); // Timestamp, Location
+}
+
 // handling CORS as middleware
 // in the header
 router.use(function (req, res, next) {
@@ -26,8 +30,18 @@ router.get("/pollMunich", (req, res) => {
   console.log("Data:" + jsonPoll);
 
   res.status(200).send({
-    data: jsonPoll,
+    dat: jsonPoll,
   });
+});
+
+router.post("/saveData", (req, res) => {
+  try {
+    let jsonData = JSON.stringify(req.body, null, 2);
+    fs.writeFile("data.json", jsonData, done);
+    res.status(200).send();
+  } catch (error) {
+    console.log("Something went wrong: ", error);
+  }
 });
 
 module.exports = router;

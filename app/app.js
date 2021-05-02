@@ -3,6 +3,7 @@
 // Check the details of the API here: https://openweathermap.org/api/air-pollution
 
 import { apiKey } from "../keys.js";
+import { dt } from "./timestamp.js";
 
 // let checkBackend = async function () {
 //   const res = await axios.get("http://localhost:3000/pollMunich");
@@ -10,7 +11,40 @@ import { apiKey } from "../keys.js";
 // };
 // checkBackend();
 
+class AirObject {
+  // int, dateTime(string????), string
+  constructor(airQuality, dateTime, location) {
+    this.airQuality = airQuality;
+    this.dateTime = dateTime;
+    this.location = location;
+  }
+}
+
+// this function loops endlessly 0.0
+let checkBackend = async function () {
+  let newData = await fetchPollutionData(Munich.Lat, Munich.Lon);
+  let airObject = new AirObject(newData, dt, "Munich");
+  const res = await axios.get("http://localhost:3000/pollMunich");
+  let responseObject = res.data;
+  let responseArray = responseObject.dat;
+
+  // const newAirData = [...responseArray];
+  responseArray.push(airObject);
+
+  try {
+    const resp = await axios
+      .post("http://localhost:3000/saveData", newEntry)
+      .then((response) => console.log(response));
+    // event.preventDefault();
+    console.log(resp.data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const oneHour = 60 * 60 * 1000;
+const minute = 60 * 1000;
+// setInterval(checkBackend, minute);
 // setInterval(checkBackend, oneHour);
 // push neuesten Quality Index für Linien Chart in Array und speichere (put) im Backend
 // dann erstelle neue Linien Chart
@@ -167,7 +201,9 @@ let fetchPollutionData = async function (lat, lon) {
     )
     .then((pollution) => {
       data = showData(pollution);
-      console.log("In fetch function: " + pollution);
+      console.log(
+        "In fetch function, SulphurDioxide: " + pollution.SulphurDioxide
+      );
     })
     .catch((err) => console.log(err));
 
@@ -213,6 +249,8 @@ let fetchPollutionData = async function (lat, lon) {
       },
     },
   });
+
+  return pollution.AirQualityIndex;
 };
 
 let clear = function () {
