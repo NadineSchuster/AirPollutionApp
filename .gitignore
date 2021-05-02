@@ -1,2 +1,6 @@
 # Ignore files related to API keys
 keys.js
+
+# Ignore node_modules
+/node_modules
+node_modules

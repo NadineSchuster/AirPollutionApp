@@ -1,95 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="robots" content="index, follow" />
-    <meta name="description" content="Shows air pollution of a few big citys in Germany" />
+    <meta
+      name="description"
+      content="Shows air pollution of a few big citys in Germany"
+    />
     <link rel="icon" href="./imgs/wind.svg" />
     <link rel="stylesheet" type="text/css" href="./styles/style.css" />
     <title>Air Pollution App</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1 id="heading">Air Pollution</h1>
 
     <div class="options">
-        <button class="optMunich">München</button>
-        <button class="optFaM">Frankfurt am Main</button>
-        <button class="optBerlin">Berlin</button>
+      <button class="optMunich">München</button>
+      <button class="optFaM">Frankfurt am Main</button>
+      <button class="optBerlin">Berlin</button>
     </div>
 
     <div class="user-input">
-        <h3>Enter some coordinates:</h3>
-        <label for="user-lat">Latitude:</label>
-        <input id="user-lat" type="text">
-        <label for="user-lon">Longitude:</label>
-        <input id="user-lon" type="text">
-        <button id="ok">OK</button>
+      <h3>Enter some coordinates:</h3>
+      <label for="user-lat">Latitude:</label>
+      <input id="user-lat" type="text" />
+      <label for="user-lon">Longitude:</label>
+      <input id="user-lon" type="text" />
+      <button id="ok">OK</button>
     </div>
 
-    <section class="data">
-        <div class="img-container">
-            <img src="" alt="">
-        </div>
-        <h3>Details <span></span></h3>
+    <div class="chart-container">
+      <canvas id="chart"></canvas>
+    </div>
 
-        <table>
-            <tr>
-                <td>Air Quality Index</td>
-                <td class="pollutionValue"></td>
-            </tr>
-            <tr>
-                <td><a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Carbon_monoxide">Carbon Monoxide</a></td>
-                <td class="pollutionValue"></td>
-                <td>μg/m3</td>
-            </tr>
-            <tr>
-                <td><a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Ammonia">Ammonia</a></td>
-                <td class="pollutionValue"></td>
-                <td>μg/m3</td>
-            </tr>
-            <tr>
-                <td><a target="_blank" rel="noopener noreferrer" href="https://www.sciencedirect.com/topics/earth-and-planetary-sciences/nitrogen-monoxide">Nitrogen Monoxide</a></td>
-                <td class="pollutionValue"></td>
-                <td>μg/m3</td>
-            </tr>
-            <tr>
-                <td><a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Nitrogen_dioxide">Nitrogen Dioxide</a></td>
-                <td class="pollutionValue"></td>
-                <td>μg/m3</td>
-            </tr>
-            <tr>
-                <td><a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Ozone">Ozone</a></td>
-                <td class="pollutionValue" ></td>
-                <td>μg/m3</td>
-            </tr>
-            <tr>
-                <td><a target="_blank" rel="noopener noreferrer" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Coarse Particulate Matter</a></td>
-                <td class="pollutionValue" ></td>
-                <td>μg/m3</td>
-            </tr>
-            <tr>
-                <td><a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Particulates">Fine Particles Matter</a></td>
-                <td class="pollutionValue" ></td>
-                <td>μg/m3</td>
-            </tr>
-            <tr>
-                <td><a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Sulfur_dioxide">Sulphur Dioxide</a></td>
-                <td class="pollutionValue" ></td>
-                <td>μg/m3</td>
-            </tr>
-        </table>
-    </section>
+    <!-- <section class="data">
+      <div class="img-container">
+        <img src="" alt="" />
+      </div>
+      <h3>Details <span></span></h3>
+
+      <table>
+        <tr>
+          <td>Air Quality Index</td>
+          <td class="pollutionValue"></td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://en.wikipedia.org/wiki/Carbon_monoxide"
+              >Carbon Monoxide</a
+            >
+          </td>
+          <td class="pollutionValue"></td>
+          <td>μg/m3</td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://en.wikipedia.org/wiki/Ammonia"
+              >Ammonia</a
+            >
+          </td>
+          <td class="pollutionValue"></td>
+          <td>μg/m3</td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.sciencedirect.com/topics/earth-and-planetary-sciences/nitrogen-monoxide"
+              >Nitrogen Monoxide</a
+            >
+          </td>
+          <td class="pollutionValue"></td>
+          <td>μg/m3</td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://en.wikipedia.org/wiki/Nitrogen_dioxide"
+              >Nitrogen Dioxide</a
+            >
+          </td>
+          <td class="pollutionValue"></td>
+          <td>μg/m3</td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://en.wikipedia.org/wiki/Ozone"
+              >Ozone</a
+            >
+          </td>
+          <td class="pollutionValue"></td>
+          <td>μg/m3</td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics"
+              >Coarse Particulate Matter</a
+            >
+          </td>
+          <td class="pollutionValue"></td>
+          <td>μg/m3</td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://en.wikipedia.org/wiki/Particulates"
+              >Fine Particles Matter</a
+            >
+          </td>
+          <td class="pollutionValue"></td>
+          <td>μg/m3</td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://en.wikipedia.org/wiki/Sulfur_dioxide"
+              >Sulphur Dioxide</a
+            >
+          </td>
+          <td class="pollutionValue"></td>
+          <td>μg/m3</td>
+        </tr>
+      </table>
+    </section> -->
+
+    <!-- <script>
+      var ctx = document.getElementById("chart").getContext("2d");
+      var myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [
+            {
+              label: "# of Votes",
+              data: [1, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script> -->
 
     <footer>
-        Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
-            href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-        <script type="module" src="./app/app.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <div>
+        Icons made by
+        <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+          >Freepik</a
+        >
+        from
+        <a href="https://www.flaticon.com/" title="Flaticon">
+          www.flaticon.com</a
+        >
+      </div>
+      <script type="module" src="./app/app.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <ul class="rechtliches">
+        <li>
+          <a target="_blank" rel="noopener noreferrer" href="../Impressum.html"
+            >Impressum</a
+          >
+        </li>
+        <li>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="../Datenschutz.html"
+          >
+            Datenschutz</a
+          >
+        </li>
+      </ul>
     </footer>
-</body>
-
+  </body>
 </html>
